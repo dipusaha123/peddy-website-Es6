@@ -64,6 +64,7 @@ const dislaypats = (pets) => {
                     <p>${pet.pet_details.slice(0,100)}</p>
                     <div class="card-actions justify-end">
                     <button class="btn js-select btn-primary ">Select</button>
+                    <button onclick = "handleDetails(${pet.petId})" class="btn bg-red-600 details ">Details</button>
                     </div>
                 </div>
                 </div>
@@ -82,10 +83,18 @@ const dislaypats = (pets) => {
 
                 const licontainer = document.getElementById("selected-container");
                 const div = document.createElement("div");
+                div.classList.add("flex")
                 div.innerHTML =`
                 <li>${title}</li>
                 <button class = "btn delete-btn">Delete </button>
                 `;
+                licontainer.appendChild(div)
+
+                const prevCount = getValueById("count")
+                const sum = prevCount + 1;
+
+                document.getElementById("count").innerText =sum;
+
 
              })
 }
@@ -103,6 +112,23 @@ const show = (id) => {
 
 }
 
+const getValueById = (id) => {
+    const element = document.getElementById(id).innerText;
+    const convertValue = parseInt(element);
+    return convertValue;
+
+}
+
+
+
+
+const handleDetails = async(petId) => {
+  
+    const response = await fetch(`https://openapi.programming-hero.com/api/peddy/pet/${petId}`)
+    const data = await response.json();
+    console.log(data.petData)
+
+}
 
 
 
